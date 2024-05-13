@@ -1,0 +1,49 @@
+{
+  "name": "tsconfig-paths-webpack-plugin",
+  "version": "1.0.0-alpha.1",
+  "description": "Use `paths` in tsconfig.json at each directories to let Webpack resolves files as expected.",
+  "main": "dist/lib/index.js",
+  "typings": "typings",
+  "scripts": {
+    "lint:eslint": "cross-env eslint ./lib/**/*.ts --quiet",
+    "build": "cross-env rm -rf dist && swc ./lib -d dist",
+    "prepublish": "cross-env pnpm build",
+    "start": "pnpm build && pnpm --filter example-project start"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/RexSkz/tsconfig-paths-webpack-plugin.git"
+  },
+  "keywords": [
+    "tsconfig",
+    "webpack",
+    "resolve",
+    "plugin"
+  ],
+  "author": "Rex Zeng <rex@rexskz.info>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/RexSkz/tsconfig-paths-webpack-plugin/issues"
+  },
+  "homepage": "https://github.com/RexSkz/tsconfig-paths-webpack-plugin#readme",
+  "devDependencies": {
+    "@rollup/plugin-commonjs": "^25.0.7",
+    "@rollup/plugin-node-resolve": "^15.2.3",
+    "@rollup/plugin-replace": "^5.0.2",
+    "@swc/cli": "^0.3.12",
+    "@swc/core": "^1.5.5",
+    "@types/node": "^20.11.16",
+    "cross-env": "^7.0.3",
+    "eslint": "^8",
+    "eslint-plugin-rexskz": "1.0.0",
+    "rollup": "^2.67.0",
+    "rollup-plugin-swc": "^0.2.1",
+    "swc-loader": "^0.2.6",
+    "typescript": "^5.4.5",
+    "webpack": "^5.91.0"
+  },
+  "dependencies": {
+    "get-tsconfig": "^4.7.5",
+    "glob": "^10.3.15"
+  }
+}
