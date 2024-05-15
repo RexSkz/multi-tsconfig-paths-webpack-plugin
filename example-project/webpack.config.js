@@ -1,7 +1,7 @@
 /* eslint-disable @typescript-eslint/no-var-requires */
 const path = require('path');
 const HtmlWebpackPlugin = require('html-webpack-plugin');
-const TsconfigPathsWebpackPlugin = require('../dist/lib/index').default;
+const MultiTsconfigPathsWebpackPlugin = require('../dist/lib/index').default;
 
 module.exports = {
   mode: 'development',
@@ -21,7 +21,7 @@ module.exports = {
   resolve: {
     extensions: ['.js', '.ts'],
     plugins: [
-      new TsconfigPathsWebpackPlugin({
+      new MultiTsconfigPathsWebpackPlugin({
         glob: './**/tsconfig.json', // optional
       }),
     ],

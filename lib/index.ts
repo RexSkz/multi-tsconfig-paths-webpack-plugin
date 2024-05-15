@@ -11,14 +11,14 @@ export interface Options {
   extensions: string[];
 }
 
-const pluginName = 'TsconfigPathsWebpackPlugin';
+const pluginName = 'MultiTsconfigPathsWebpackPlugin';
 
 const defaultOptions: Options = {
   glob: './**/tsconfig.json',
   extensions: ['', '.ts', '.tsx', '.js', '.jsx', '/index.ts', '/index.tsx', '/index.js', '/index.jsx'],
 };
 
-class TsconfigPathsWebpackPlugin {
+class MultiTsconfigPathsWebpackPlugin {
   private opts: Options = defaultOptions;
   private tsconfigs: Record<string, TsConfigResult> = {};
   private caches: Record<string, string> = {};
@@ -97,4 +97,4 @@ class TsconfigPathsWebpackPlugin {
   }
 }
 
-export default TsconfigPathsWebpackPlugin;
+export default MultiTsconfigPathsWebpackPlugin;

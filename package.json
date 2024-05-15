@@ -1,5 +1,5 @@
 {
-  "name": "tsconfig-paths-webpack-plugin",
+  "name": "multi-tsconfig-paths-webpack-plugin",
   "version": "1.0.0-alpha.1",
   "description": "Use `paths` in tsconfig.json at each directories to let Webpack resolves files as expected.",
   "main": "dist/lib/index.js",
@@ -12,7 +12,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "git+https://github.com/RexSkz/tsconfig-paths-webpack-plugin.git"
+    "url": "git+https://github.com/RexSkz/multi-tsconfig-paths-webpack-plugin.git"
   },
   "keywords": [
     "tsconfig",
@@ -23,9 +23,9 @@
   "author": "Rex Zeng <rex@rexskz.info>",
   "license": "MIT",
   "bugs": {
-    "url": "https://github.com/RexSkz/tsconfig-paths-webpack-plugin/issues"
+    "url": "https://github.com/RexSkz/multi-tsconfig-paths-webpack-plugin/issues"
   },
-  "homepage": "https://github.com/RexSkz/tsconfig-paths-webpack-plugin#readme",
+  "homepage": "https://github.com/RexSkz/multi-tsconfig-paths-webpack-plugin#readme",
   "devDependencies": {
     "@rollup/plugin-commonjs": "^25.0.7",
     "@rollup/plugin-node-resolve": "^15.2.3",

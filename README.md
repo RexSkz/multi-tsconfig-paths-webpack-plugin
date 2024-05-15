@@ -7,20 +7,20 @@ Use `paths` in tsconfig.json at each directory to let Webpack resolve files as e
 Install the plugin using the package manager.
 
 ```bash
-npm i -D tsconfig-paths-webpack-plugin
-yarn add -D tsconfig-paths-webpack-plugin
-pnpm i -D tsconfig-paths-webpack-plugin
+npm i -D multi-tsconfig-paths-webpack-plugin
+yarn add -D multi-tsconfig-paths-webpack-plugin
+pnpm i -D multi-tsconfig-paths-webpack-plugin
 ```
 
 Add the plugin to your Webpack configuration.
 
 ```javascript
-const TsconfigPathsWebpackPlugin = require('tsconfig-paths-webpack-plugin');
+const MultiTsconfigPathsWebpackPlugin = require('multi-tsconfig-paths-webpack-plugin');
 
 module.exports = {
   resolve: {
     plugins: [
-      new TsconfigPathsPlugin(),
+      new MultiTsconfigPathsPlugin(),
     ],
   },
 };
