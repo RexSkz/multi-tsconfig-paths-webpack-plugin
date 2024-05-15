@@ -9,6 +9,7 @@
     "jsx": "react",
     "module": "commonjs",
     "moduleResolution": "node",
+    "noImplicitAny": true,
     "outDir": "typings",
     "resolveJsonModule": true,
     "sourceMap": true,
