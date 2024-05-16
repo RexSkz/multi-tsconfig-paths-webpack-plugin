@@ -1,6 +1,6 @@
 {
   "name": "multi-tsconfig-paths-webpack-plugin",
-  "version": "1.0.0-alpha.1",
+  "version": "1.0.0-alpha.2",
   "description": "Use `paths` in tsconfig.json at each directories to let Webpack resolves files as expected.",
   "main": "dist/lib/index.js",
   "typings": "typings",
