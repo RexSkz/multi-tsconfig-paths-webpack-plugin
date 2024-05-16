@@ -18,7 +18,7 @@ const defaultOptions: Options = {
   extensions: ['', '.ts', '.tsx', '.js', '.jsx', '/index.ts', '/index.tsx', '/index.js', '/index.jsx'],
 };
 
-class MultiTsconfigPathsWebpackPlugin {
+export class MultiTsconfigPathsWebpackPlugin {
   private opts: Options = defaultOptions;
   private tsconfigs: Record<string, TsConfigResult> = {};
   private caches: Record<string, string> = {};
@@ -68,26 +68,32 @@ class MultiTsconfigPathsWebpackPlugin {
           if (!requestPath || !requestPath.startsWith(currentPath)) {
             continue;
           }
-          const relativePath = requestPath.replace(currentPath, '').replace(/^[\/\\]/, '');
+          const relativePath = requestPath.replace(request.path || '', '').replace(/^[\/\\]/, '');
           const matcher = createPathsMatcher(tsconfig);
           if (!matcher) {
             continue;
           }
+          const finish = (file: string) => {
+            const realFile = path.sep === '\\'
+              ? file.replaceAll('/', '\\')
+              : file;
+            this.caches[requestPath] = realFile;
+            resolver.doResolve(
+              target,
+              { ...request, path: realFile },
+              `${pluginName}: ${request.path} -> ${realFile}`,
+              ctx,
+              callback,
+            );
+          };
           for (const possibleFile of matcher(relativePath)) {
+            if (fs.existsSync(possibleFile) && fs.statSync(possibleFile).isDirectory()) {
+              return finish(possibleFile);
+            }
             for (const extension of this.opts.extensions) {
               const file = `${possibleFile}${extension}`;
               if (fs.existsSync(file) && fs.statSync(file).isFile()) {
-                const realFile = path.sep === '\\'
-                  ? file.replaceAll('/', '\\')
-                  : file;
-                this.caches[requestPath] = realFile;
-                return resolver.doResolve(
-                  target,
-                  { ...request, path: realFile },
-                  `${pluginName}: ${request.path} -> ${realFile}`,
-                  ctx,
-                  callback,
-                );
+                return finish(file);
               }
             }
           }

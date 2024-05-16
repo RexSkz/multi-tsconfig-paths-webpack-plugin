@@ -15,12 +15,14 @@ pnpm i -D multi-tsconfig-paths-webpack-plugin
 Add the plugin to your Webpack configuration.
 
 ```javascript
-const MultiTsconfigPathsWebpackPlugin = require('multi-tsconfig-paths-webpack-plugin');
+const { MultiTsconfigPathsWebpackPlugin } = require('multi-tsconfig-paths-webpack-plugin');
 
 module.exports = {
   resolve: {
     plugins: [
-      new MultiTsconfigPathsPlugin(),
+      new MultiTsconfigPathsWebpackPlugin({
+        glob: '../../**/tsconfig.json', // depends on your project structure
+      }),
     ],
   },
 };
@@ -35,15 +37,17 @@ For example, here is the project structure:
 ```
 project
 ├── packages
-│   ├── a
+│   ├── sub
 │   │   ├── src
 │   │   │   ├── bar.ts
 │   │   │   └── index.ts
 │   │   └── tsconfig.json
-│   └── ...
-├── src
-│   ├── foo.ts
-│   └── index.ts
+│   └── main
+│       ├── src
+│       │   ├── foo.ts
+│       │   └── index.ts
+│       ├── webpack.config.js
+│       └── tsconfig.json
 └── tsconfig.json
 ```
 
@@ -62,10 +66,10 @@ All `tsconfig.json`s have the same `baseUrl` and `paths` configuration:
 
 TypeScript respects the `tsconfig.json` in all directories. It will resolve the files as expected:
 
-- In the file `/src/index.ts`, if you write `import ... from '@/foo'`, TypeScript resolves the file to `/src/foo.ts`.
-- In the file `/packages/a/src/index.ts`, if you write `import ... from '@/bar'`, TypeScript resolves the file to `/packages/a/src/bar.ts`.
+- In the file `/packages/main/src/index.ts`, if you write `import ... from '@/foo'`, TypeScript resolves the file to `/packages/main/src/foo.ts`.
+- In the file `/packages/sub/src/index.ts`, if you write `import ... from '@/bar'`, TypeScript resolves the file to `/packages/sub/src/bar.ts`.
 
-But Webpack aliases are globally set. If you set `@` to `/src`, it will resolve all `@`s to `/src`. The `@/bar` will be resolved to `/src/bar.ts`, not `/packages/a/src/bar.ts`. That means even if you can `Ctrl/Cmd + Click` to jump to the file in your IDE, there are still errors in Webpack.
+But Webpack aliases are globally set. If you set `@` to `/packages/main/src`, it will resolve all `@`s to `/packages/main/src`. The `@/bar` will be resolved to `/packages/main/src/bar.ts`, not `/packages/sub/src/bar.ts`. That means even if you can `Ctrl/Cmd + Click` to jump to the file in your IDE, there are still errors in Webpack.
 
 This plugin will help you resolve the files as expected. If you don't use monorepo, you can still use this plugin as a replacement for setting `config.resolve.alias` in Webpack config using `tsconfig.json` manually.
 
